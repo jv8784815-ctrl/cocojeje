@@ -38,35 +38,6 @@
       border: 1px solid #c9a87c;
     }
 
-    .dedication-header {
-      text-align: center;
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 2px dashed #b48b5a;
-    }
-
-    .dedication-header h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      color: #3d2a1b;
-      text-shadow: 3px 3px 0 #e7cba5;
-      letter-spacing: 1px;
-    }
-
-    .dedication-header h1 i {
-      color: #c24b4b;
-      font-size: 2.8rem;
-      margin-left: 8px;
-    }
-
-    .dedication-header h2 {
-      font-size: 2.2rem;
-      font-weight: 400;
-      color: #5a3f28;
-      margin-top: 5px;
-      font-style: italic;
-    }
-
     /* imagen principal */
     .main-photo-container {
       text-align: center;
@@ -196,7 +167,6 @@
 
     @media (max-width: 500px) {
       .card { padding: 1.5rem 1rem; }
-      .dedication-header h1 { font-size: 2.8rem; }
       .albums-grid { gap: 0.8rem; }
       .album-title { font-size: 1.2rem; }
       .album-artist { font-size: 1rem; }
@@ -205,13 +175,7 @@
 </head>
 <body>
   <div class="card">
-    <!-- cabecera -->
-    <div class="dedication-header">
-      <h1># Te dedico <i class="fas fa-heart"></i></h1>
-      <h2>Te dedico ❤️</h2>
-    </div>
-
-    <!-- imagen principal -->
+    <!-- imagen principal (sin títulos arriba) -->
     <div class="main-photo-container">
       <div class="main-photo">
         <img src="imagen.jpg" alt="foto principal" id="mainImage">
@@ -306,7 +270,7 @@
     </div>
 
     <div class="footer-note">
-      <i class="fas fa-music"></i> solo x vos <i class="fas fa-heart" style="color: #c24b4b;"></i>
+      <i class="fas fa-music"></i> para coquito <i class="fas fa-heart" style="color: #c24b4b;"></i>
     </div>
   </div>
 
@@ -362,7 +326,6 @@
       }
 
       function playSong(item, songFile) {
-        // Si es la misma canción y está sonando, pausar
         if (currentSongFile === songFile && !audioPlayer.paused) {
           audioPlayer.pause();
           removePlayingClass();
@@ -371,12 +334,8 @@
           return;
         }
 
-        // Quitar clase de todos
         removePlayingClass();
-
-        // Cargar y reproducir
         audioPlayer.src = getSongPath(songFile);
-        
         item.classList.add('playing');
         
         const playPromise = audioPlayer.play();
@@ -390,7 +349,6 @@
             console.warn(`Error al reproducir: ${songFile}`, err);
             item.classList.remove('playing');
             
-            // Mostrar error temporal
             const icon = item.querySelector('.play-overlay i');
             if (icon) {
               icon.className = 'fas fa-exclamation-triangle';
@@ -413,17 +371,14 @@
         };
       }
 
-      // Asignar evento click a cada álbum
       albumItems.forEach(item => {
         const songFile = item.dataset.song;
         if (!songFile) return;
-
         item.addEventListener('click', (e) => {
           playSong(item, songFile);
         });
       });
 
-      // Eventos del reproductor
       audioPlayer.addEventListener('pause', () => {
         if (currentPlayingItem) {
           updateIcon(currentPlayingItem, false);
@@ -451,11 +406,6 @@
         currentSongFile = null;
         currentPlayingItem = null;
       });
-
-      console.log('🎵 Página lista! Estructura esperada:');
-      console.log('  /imagen.jpg');
-      console.log('  /musicas/ (6 archivos .mp3)');
-      console.log('  /albumes/ (6 imágenes .jpg)');
     })();
   </script>
 </body>
