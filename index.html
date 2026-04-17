@@ -38,30 +38,26 @@
       border: 1px solid #c9a87c;
     }
 
-    /* imagen principal */
-    .main-photo-container {
+    /* título "Te amo" */
+    .love-title {
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px dashed #b48b5a;
     }
 
-    .main-photo {
-      display: inline-block;
-      max-width: 320px;
-      border-radius: 16px;
-      box-shadow: 0 10px 20px -5px rgba(40, 25, 10, 0.4), 0 0 0 5px #fcf3e8, 0 0 0 7px #ccb094;
-      padding: 8px;
-      background: #f1ddc4;
-      transform: rotate(-1deg);
+    .love-title h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #3d2a1b;
+      text-shadow: 3px 3px 0 #e7cba5;
+      letter-spacing: 2px;
     }
 
-    .main-photo img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 10px;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      background: #d9c1a4;
+    .love-title h1 i {
+      color: #c24b4b;
+      font-size: 3.2rem;
+      margin-left: 10px;
     }
 
     /* grid de álbumes */
@@ -167,6 +163,7 @@
 
     @media (max-width: 500px) {
       .card { padding: 1.5rem 1rem; }
+      .love-title h1 { font-size: 3rem; }
       .albums-grid { gap: 0.8rem; }
       .album-title { font-size: 1.2rem; }
       .album-artist { font-size: 1rem; }
@@ -175,11 +172,9 @@
 </head>
 <body>
   <div class="card">
-    <!-- imagen principal (sin títulos arriba) -->
-    <div class="main-photo-container">
-      <div class="main-photo">
-        <img src="imagen.jpg" alt="foto principal" id="mainImage">
-      </div>
+    <!-- título "Te amo ❤️" -->
+    <div class="love-title">
+      <h1>Te amo <i class="fas fa-heart"></i></h1>
     </div>
 
     <!-- grid de álbumes (6 canciones) -->
@@ -285,15 +280,6 @@
       
       let currentPlayingItem = null;
       let currentSongFile = null;
-
-      // Manejar error de imagen principal
-      const mainImg = document.getElementById('mainImage');
-      mainImg.addEventListener('error', function() {
-        this.style.backgroundColor = '#d9b38c';
-        this.style.padding = '20px';
-        this.style.objectFit = 'contain';
-        console.warn('⚠️ imagen.jpg no encontrada en la raíz');
-      });
 
       // Manejar error de imágenes de álbum
       document.querySelectorAll('.album-img').forEach(img => {
