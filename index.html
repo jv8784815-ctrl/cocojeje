@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>te dedico ❤️ · pami · underaiki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #1a1f2e 0%, #141824 100%);
+      font-family: 'Caveat', cursive;
+      padding: 1.5rem;
+    }
+
+    .card {
+      max-width: 520px;
+      width: 100%;
+      background: radial-gradient(circle at 20% 30%, #f9e9d2 0%, #f5d8b8 40%, #eac8a2 100%);
+      background-image: 
+        repeating-linear-gradient(45deg, rgba(210, 160, 110, 0.08) 0px, rgba(210, 160, 110, 0.08) 2px, transparent 2px, transparent 8px),
+        radial-gradient(circle at 20% 30%, #f9e9d2 0%, #f5d8b8 40%, #eac8a2 100%);
+      border-radius: 48px 48px 36px 36px;
+      box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.5), 0 0 0 2px #dbb88c inset, 0 0 0 6px #f3e5d2 inset;
+      padding: 2rem 2rem 2.5rem 2rem;
+      border: 1px solid #c9a87c;
+      position: relative;
+    }
+
+    .dedication-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 1.8rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px dashed #b48b5a;
+    }
+
+    .dedication-header h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #3d2a1b;
+      text-shadow: 3px 3px 0 #e7cba5;
+      letter-spacing: 1px;
+      display: inline;
+    }
+
+    .dedication-header .heart {
+      font-size: 2.4rem;
+      color: #c24b4b;
+      margin-left: 4px;
+      filter: drop-shadow(0 2px 3px rgba(170, 70, 70, 0.3));
+      transform: translateY(3px);
+    }
+
+    /* imagen principal */
+    .polaroid-frame {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .main-photo {
+      display: block;
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto;
+      border-radius: 12px 12px 8px 8px;
+      box-shadow: 0 10px 18px -5px rgba(40, 25, 10, 0.4), 0 0 0 5px #fcf3e8, 0 0 0 7px #ccb094;
+      background: #f1ddc4;
+      padding: 8px 8px 5px 8px;
+      transform: rotate(-1deg);
+      transition: transform 0.2s;
+    }
+
+    .main-photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      background: #d9c1a4;
+    }
+
+    /* lista de canciones */
+    .song-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .song-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: #2f1f12;
+      padding: 0.3rem 0.8rem;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: rgba(250, 240, 225, 0.3);
+      border-left: 6px solid transparent;
+    }
+
+    .song-item:hover {
+      background: rgba(235, 200, 160, 0.5);
+      border-left: 6px solid #b56532;
+      padding-left: 1.2rem;
+      transform: scale(1.01);
+    }
+
+    .song-item.playing {
+      background: #e7c8a8;
+      border-left: 6px solid #9e4a2b;
+      box-shadow: 0 2px 8px rgba(120, 70, 30, 0.2);
+    }
+
+    .song-name {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: #3d2819;
+    }
+
+    .song-artist {
+      font-size: 1.5rem;
+      font-style: italic;
+      color: #6f4e31;
+      margin-left: 6px;
+      font-family: 'Caveat', cursive;
+      font-weight: 400;
+    }
+
+    .play-icon {
+      margin-left: auto;
+      font-size: 1.5rem;
+      color: #7b4a2a;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .song-item:hover .play-icon {
+      opacity: 1;
+    }
+
+    .song-item.playing .play-icon {
+      color: #a03e2b;
+      opacity: 1;
+    }
+
+    /* reproductor oculto (audio) */
+    audio {
+      display: none;
+    }
+
+    /* pie */
+    .footer-note {
+      margin-top: 2rem;
+      text-align: right;
+      font-size: 1.6rem;
+      color: #6b4a2c;
+      border-top: 1px dashed #c1a07e;
+      padding-top: 1rem;
+      font-style: italic;
+    }
+
+    .footer-note i {
+      margin: 0 4px;
+      color: #b34e4e;
+    }
+
+    /* adapta móvil */
+    @media (max-width: 450px) {
+      .card { padding: 1.5rem 1rem; }
+      .dedication-header h1 { font-size: 2.8rem; }
+      .song-name { font-size: 1.8rem; }
+      .song-artist { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- cabecera "Te dedico <3" igual a la imagen -->
+    <div class="dedication-header">
+      <h1># Te dedico</h1>
+      <span class="heart"><i class="fas fa-heart"></i></span>
+    </div>
+
+    <!-- imagen principal (imagen.jpg en raíz) -->
+    <div class="polaroid-frame">
+      <div class="main-photo">
+        <img src="imagen.jpg" alt="foto dedicada" id="mainImage">
+      </div>
+    </div>
+
+    <!-- lista de canciones (mismos nombres que en la imagen) -->
+    <div class="song-list">
+      <!-- pami - Underaiki -->
+      <div class="song-item" data-song="pami.mp3">
+        <span class="song-name">pami</span>
+        <span class="song-artist">Underaiki</span>
+        <span class="play-icon"><i class="fas fa-play"></i></span>
+      </div>
+      <!-- fotolove! - saramalacara -->
+      <div class="song-item" data-song="fotolove!.mp3">
+        <span class="song-name">fotolove!</span>
+        <span class="song-artist">saramalacara</span>
+        <span class="play-icon"><i class="fas fa-play"></i></span>
+      </div>
+      <!-- Nara - Underaiki -->
+      <div class="song-item" data-song="Nara.mp3">
+        <span class="song-name">Nara</span>
+        <span class="song-artist">Underaiki</span>
+        <span class="play-icon"><i class="fas fa-play"></i></span>
+      </div>
+      <!-- solo x vos - Trueno -->
+      <div class="song-item" data-song="solo x vos.mp3">
+        <span class="song-name">solo x vos</span>
+        <span class="song-artist">Trueno</span>
+        <span class="play-icon"><i class="fas fa-play"></i></span>
+      </div>
+      <!-- Amor de siempre - cuco -->
+      <div class="song-item" data-song="Amor de siempre.mp3">
+        <span class="song-name">Amor de siempre</span>
+        <span class="song-artist">cuco</span>
+        <span class="play-icon"><i class="fas fa-play"></i></span>
+      </div>
+      <!-- El lago del alma - Roju -->
+      <div class="song-item" data-song="El lago del alma.mp3">
+        <span class="song-name">El lago del alma</span>
+        <span class="song-artist">Roju</span>
+        <span class="play-icon"><i class="fas fa-play"></i></span>
+      </div>
+    </div>
+
+    <!-- pequeño footer decorativo -->
+    <div class="footer-note">
+      <i class="fas fa-music"></i> solo x vos <i class="fas fa-heart" style="font-size: 1.2rem;"></i>
+    </div>
+  </div>
+
+  <!-- Reproductor de audio (oculto) -->
+  <audio id="audioPlayer" preload="auto"></audio>
+
+  <script>
+    (function() {
+      "use strict";
+
+      const audioPlayer = document.getElementById('audioPlayer');
+      const songItems = document.querySelectorAll('.song-item');
+      
+      // Carpeta donde están los mp3: "musicas/"  (según indicaste: "Musicas en la carpeta músicas")
+      const MUSIC_FOLDER = 'musicas/';
+      
+      // Para mantener el estado de cuál está sonando
+      let currentPlayingItem = null;
+      let currentSongFile = null;
+
+      // Verificamos que exista la imagen, si falla ponemos placeholder (pero mantenemos la referencia)
+      const mainImg = document.getElementById('mainImage');
+      mainImg.addEventListener('error', function() {
+        // Si no encuentra imagen.jpg, mostramos un fondo de color con texto, para que no se vea roto
+        this.style.backgroundColor = '#d9b38c';
+        this.style.padding = '20px';
+        this.alt = 'imagen.jpg no encontrada — coloca tu foto en la raíz';
+        // No reemplazamos src, solo damos estilo.
+        this.style.objectFit = 'contain';
+        console.warn('⚠️ imagen.jpg no está en la raíz. Añádela para ver tu foto.');
+      });
+
+      // función para formatear nombre de archivo (respetar mayúsculas/minúsculas exactas)
+      function getSongFileName(songKey) {
+        // songKey ya viene como "pami.mp3", etc. Solo añadimos carpeta
+        return MUSIC_FOLDER + songKey;
+      }
+
+      // Reproducir canción
+      function playSong(songElement, songFile) {
+        // Si ya está sonando el mismo archivo, pausamos (toggle)
+        if (currentSongFile === songFile && !audioPlayer.paused) {
+          audioPlayer.pause();
+          removePlayingClass();
+          currentSongFile = null;
+          currentPlayingItem = null;
+          return;
+        }
+
+        // Quitar clase 'playing' de todos
+        removePlayingClass();
+
+        // Asignar nuevo src
+        const fullPath = getSongFileName(songFile);
+        audioPlayer.src = fullPath;
+        
+        // Marcar como cargando
+        songElement.classList.add('playing');
+        
+        // Intentar reproducir
+        const playPromise = audioPlayer.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            // Reproducción exitosa
+            currentPlayingItem = songElement;
+            currentSongFile = songFile;
+            updateIcons(songElement, true);
+          }).catch(err => {
+            // Error (archivo no existe, etc)
+            console.warn(`No se pudo reproducir "${fullPath}". Asegúrate de que existe en /musicas/`);
+            songElement.classList.remove('playing');
+            // Mostrar feedback visual
+            const icon = songElement.querySelector('.play-icon i');
+            if (icon) {
+              icon.className = 'fas fa-exclamation-triangle';
+              setTimeout(() => {
+                if (!songElement.classList.contains('playing')) {
+                  icon.className = 'fas fa-play';
+                }
+              }, 800);
+            }
+            // Limpiar current
+            currentPlayingItem = null;
+            currentSongFile = null;
+          });
+        }
+
+        // Evento cuando termine la canción: quitar clase
+        audioPlayer.onended = () => {
+          removePlayingClass();
+          currentPlayingItem = null;
+          currentSongFile = null;
+        };
+      }
+
+      function removePlayingClass() {
+        songItems.forEach(item => {
+          item.classList.remove('playing');
+          const icon = item.querySelector('.play-icon i');
+          if (icon) icon.className = 'fas fa-play';
+        });
+      }
+
+      function updateIcons(activeElement, isPlaying) {
+        songItems.forEach(item => {
+          const icon = item.querySelector('.play-icon i');
+          if (item === activeElement && isPlaying) {
+            icon.className = 'fas fa-pause';
+          } else {
+            icon.className = 'fas fa-play';
+          }
+        });
+      }
+
+      // Manejar clic en cada canción
+      songItems.forEach(item => {
+        const songFile = item.dataset.song;  // "pami.mp3", etc.
+        if (!songFile) return;
+
+        item.addEventListener('click', (e) => {
+          // Evitar si se hizo clic en el icono directamente (pero funciona igual)
+          playSong(item, songFile);
+        });
+      });
+
+      // Pausar al cambiar de src manualmente
+      audioPlayer.addEventListener('pause', () => {
+        if (currentPlayingItem) {
+          const icon = currentPlayingItem.querySelector('.play-icon i');
+          if (icon) icon.className = 'fas fa-play';
+        }
+        // No removemos la clase playing aún, para que mantenga el estilo si se reanuda
+      });
+
+      audioPlayer.addEventListener('play', () => {
+        if (currentPlayingItem) {
+          const icon = currentPlayingItem.querySelector('.play-icon i');
+          if (icon) icon.className = 'fas fa-pause';
+          currentPlayingItem.classList.add('playing');
+        }
+      });
+
+      // Si hay error de carga de audio
+      audioPlayer.addEventListener('error', () => {
+        if (currentPlayingItem) {
+          currentPlayingItem.classList.remove('playing');
+          const icon = currentPlayingItem.querySelector('.play-icon i');
+          if (icon) icon.className = 'fas fa-exclamation-circle';
+          setTimeout(() => {
+            if (!currentPlayingItem.classList.contains('playing')) {
+              icon.className = 'fas fa-play';
+            }
+          }, 1000);
+        }
+        currentSongFile = null;
+        currentPlayingItem = null;
+      });
+
+      // Soporte para arrastrar o clic accidental en ícono: funciona con el evento del padre.
+      // Pequeño ajuste: cuando se hace clic en el icono, el padre también recibe el click, ok.
+      
+      // Comprobación inicial: por si el usuario quiere cargar imagen.jpg
+      console.log('🎵 Lista para dedicar. Asegúrate de tener "imagen.jpg" en la raíz y los .mp3 dentro de /musicas/');
+    })();
+  </script>
+
+  <!-- Pequeña nota para el que ve el código: los archivos deben llamarse exactamente igual que en data-song -->
+  <!-- 
+    Archivos esperados:
+    /imagen.jpg
+    /musicas/pami.mp3
+    /musicas/fotolove!.mp3
+    /musicas/Nara.mp3
+    /musicas/solo x vos.mp3
+    /musicas/Amor de siempre.mp3
+    /musicas/El lago del alma.mp3
+  -->
+</body>
+</html>
